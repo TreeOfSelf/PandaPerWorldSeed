@@ -3,7 +3,7 @@
 	"id": "panda-per-world-seed",
 	"version": "${version}",
 	"name": "Panda Per World Seed",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "Set world seeds independently",
 	"authors": [
 		"TreeOfSelf"
 	],
