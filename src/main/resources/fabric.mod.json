@@ -5,18 +5,18 @@
 	"name": "Panda Per World Seed",
 	"description": "This is an example description! Tell everyone what your mod is about!",
 	"authors": [
-		"sebastian420"
+		"TreeOfSelf"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"homepage": "https://github.com/TreeOfSelf/PandaPerWorldSeed",
+		"sources": "https://github.com/TreeOfSelf/PandaPerWorldSeed"
 	},
 	"license": "CC0-1.0",
 	"icon": "assets/panda-per-world-seed/icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"me.sebastian420.PandaPerWorldSeed.PandaPerWorldSeed"
+			"me.TreeOfSelf.PandaPerWorldSeed.PandaPerWorldSeed"
 		]
 	},
 	"mixins": [
@@ -24,7 +24,7 @@
 	],
 	"depends": {
 		"fabricloader": ">=0.15.11",
-		"minecraft": "~1.21",
+		"minecraft": "~1.21.1",
 		"java": ">=21",
 		"fabric-api": "*"
 	},

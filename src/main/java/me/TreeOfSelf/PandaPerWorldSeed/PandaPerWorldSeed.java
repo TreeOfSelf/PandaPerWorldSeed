@@ -1,4 +1,4 @@
-package me.sebastian420.PandaPerWorldSeed;
+package me.TreeOfSelf.PandaPerWorldSeed;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

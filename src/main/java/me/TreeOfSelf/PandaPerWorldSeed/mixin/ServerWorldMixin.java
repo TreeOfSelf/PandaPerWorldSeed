@@ -1,11 +1,9 @@
-package me.sebastian420.PandaPerWorldSeed.mixin;
+package me.TreeOfSelf.PandaPerWorldSeed.mixin;
 
-import me.sebastian420.PandaPerWorldSeed.PandaPerWorldSeed;
-import net.minecraft.registry.RegistryKey;
+import me.TreeOfSelf.PandaPerWorldSeed.PandaPerWorldSeed;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.world.dimension.DimensionOptions;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.dimension.DimensionTypes;
 import net.minecraft.world.gen.StructureAccessor;
@@ -27,8 +25,8 @@ public abstract class ServerWorldMixin {
 	@Shadow public abstract StructureAccessor getStructureAccessor();
 
 	/**
-	 * @author Sebastian420
-	 * @reason Damn im faded off the kush right now and some good alcohol
+	 * @author TreeOfSelf
+	 * @reason Overwrite get seed to get based on world
 	 */
 	@Overwrite
 	public long getSeed() {
