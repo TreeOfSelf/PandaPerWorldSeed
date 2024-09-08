@@ -1,5 +1,9 @@
 # PandaPerWorldSeed
 
+## Description
+
+Set the seed independantly for each world
+
 ## Configuring
 
 config/per_world_seed.json generated at runtime
