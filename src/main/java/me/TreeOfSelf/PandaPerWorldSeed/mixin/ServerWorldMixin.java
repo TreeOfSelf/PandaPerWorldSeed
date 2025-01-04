@@ -16,13 +16,13 @@ import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(ServerWorld.class)
 public abstract class ServerWorldMixin {
-	@Shadow @Final private ServerWorldProperties worldProperties;
 
 	@Shadow public abstract ServerWorld toServerWorld();
 
-	@Shadow @NotNull public abstract MinecraftServer getServer();
 
-	@Shadow public abstract StructureAccessor getStructureAccessor();
+	@Shadow @Final private MinecraftServer server;
+
+	@Shadow @NotNull public abstract MinecraftServer getServer();
 
 	/**
 	 * @author TreeOfSelf
@@ -30,17 +30,13 @@ public abstract class ServerWorldMixin {
 	 */
 	@Overwrite
 	public long getSeed() {
-		RegistryEntry<DimensionType> dimensionEntry = this.toServerWorld().getDimensionEntry();
 
-		if (dimensionEntry.matchesKey(DimensionTypes.OVERWORLD)) {
-			return PandaPerWorldSeed.OVERWORLD_SEED;
-		}else if (dimensionEntry.matchesKey(DimensionTypes.THE_NETHER)){
-			return PandaPerWorldSeed.THE_NETHER_SEED;
-		}else if (dimensionEntry.matchesKey(DimensionTypes.THE_END)){
-			return PandaPerWorldSeed.THE_END_SEED;
-		}else {
-			return this.getServer().getSaveProperties().getGeneratorOptions().getSeed();
-		}
+		String dimensionId = this.toServerWorld().getDimensionEntry().getIdAsString();
+		String trimmedID = dimensionId.replaceFirst("minecraft:", "");
+
+		Long seed = PandaPerWorldSeed.getSeed(trimmedID);
+
+		return seed != null ? seed : this.server.getSaveProperties().getGeneratorOptions().getSeed();
 
 	}
 }
