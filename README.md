@@ -4,7 +4,10 @@
 
 ## Description
 
-Set the world seed per-world like on Paper 
+Want to obsfucate your server generation as much as possible? Are you transferring a server from Paper to Fabric?
+PandaPerWorldSeed lets you set an independent seed for each dimension, and even works for custom datapack dimensions. 
+A very simple, yet useful mod.
+
 
 ## Configuring
 
