@@ -30,13 +30,8 @@ public abstract class ServerWorldMixin {
 	 */
 	@Overwrite
 	public long getSeed() {
-
 		String dimensionId = this.toServerWorld().getDimensionEntry().getIdAsString();
-		String trimmedID = dimensionId.replaceFirst("minecraft:", "");
-
-		Long seed = PandaPerWorldSeed.getSeed(trimmedID);
-
+		Long seed = PandaPerWorldSeed.getSeed(dimensionId);
 		return seed != null ? seed : this.server.getSaveProperties().getGeneratorOptions().getSeed();
-
 	}
 }

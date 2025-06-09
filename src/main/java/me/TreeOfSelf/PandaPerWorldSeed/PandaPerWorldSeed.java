@@ -26,9 +26,9 @@ public class PandaPerWorldSeed implements ModInitializer {
 	private static final Map<String, Long> DIMENSION_SEEDS = new HashMap<>();
 
 	private static final Map<String, String> LEGACY_KEY_MAPPING = new HashMap<>() {{
-		put("OVERWORLD", "overworld");
-		put("THE_NETHER", "the_nether");
-		put("THE_END", "the_end");
+		put("overworld", "minecraft:overworld");
+		put("the_nether", "minecraft:the_nether");
+		put("the_end", "minecraft:the_end");
 	}};
 
 	@Override
@@ -56,11 +56,13 @@ public class PandaPerWorldSeed implements ModInitializer {
 				JsonObject json = GSON.fromJson(reader, JsonObject.class);
 				json.entrySet().forEach(entry -> {
 					DIMENSION_SEEDS.put(entry.getKey(), entry.getValue().getAsLong());
+					LOGGER.info("Loaded seed {} for dimension: {}", entry.getValue().getAsLong(), entry.getKey());
 				});
 			} catch (IOException e) {
 				LOGGER.error("Failed to read the configuration file.", e);
 			}
 		} else {
+			LOGGER.info("Configuration file does not exist, creating new one.");
 			try (FileWriter writer = new FileWriter(CONFIG_FILE)) {
 				GSON.toJson(new JsonObject(), writer);
 			} catch (IOException e) {
@@ -70,11 +72,15 @@ public class PandaPerWorldSeed implements ModInitializer {
 	}
 
 	private void onWorldLoaded(MinecraftServer minecraftServer, ServerWorld serverWorld) {
-		String dimension = serverWorld.getRegistryKey().getValue().toString().replaceFirst("minecraft:", "");
+		String dimension = serverWorld.getDimensionEntry().getIdAsString();
+		LOGGER.info("World loaded: {}", dimension);
 		if (!DIMENSION_SEEDS.containsKey(dimension)) {
 			long seed = new Random().nextLong();
 			DIMENSION_SEEDS.put(dimension, seed);
-			saveSeedToFile(dimension, seed);
+			LOGGER.info("Generated new seed {} for dimension: {}", seed, dimension);
+			saveSeedsToFile();
+		} else {
+			LOGGER.info("Using existing seed {} for dimension: {}", DIMENSION_SEEDS.get(dimension), dimension);
 		}
 	}
 
@@ -88,13 +94,13 @@ public class PandaPerWorldSeed implements ModInitializer {
 		}
 	}
 
-	private void saveSeedToFile(String dimension, long seed) {
-		JsonObject json = new JsonObject();
-		json.addProperty(dimension, seed);
-		saveSeedsToFile();
-	}
-
 	public static Long getSeed(String dimension) {
-		return DIMENSION_SEEDS.get(dimension);
+		Long seed = DIMENSION_SEEDS.get(dimension);
+		if (seed != null) {
+			LOGGER.debug("Retrieved seed {} for dimension: {}", seed, dimension);
+		} else {
+			LOGGER.debug("No seed found for dimension: {}", dimension);
+		}
+		return seed;
 	}
 }
