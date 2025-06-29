@@ -15,10 +15,10 @@ config/per_world_seed.json generated at runtime, an entry for each dimension wil
 
 ```
 {
-  "overworld": -2226254867561344606,
-  "the_nether": 5127212450885126531,
-  "the_end": 7103252580855421531,
-  "custom_dimension": 4469667369908770303
+  "minecraft:overworld": -2226254867561344606,
+  "minecraft:the_nether": 5127212450885126531,
+  "minecraft:the_end": 7103252580855421531,
+  "custom:custom_dimension": 4469667369908770303
 }
 ```
 Replace with the seeds you want to use for each world
