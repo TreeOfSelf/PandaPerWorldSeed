@@ -23,6 +23,9 @@ config/per_world_seed.json generated at runtime, an entry for each dimension wil
 ```
 Replace with the seeds you want to use for each world
 
+## Try it out
+`hardcoreanarchy.gay`   (Deathban Anarchy)  
+
 ## Support
 
 [Support discord here!]( https://discord.gg/3tP3Tqu983)
