@@ -4,9 +4,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLevelEvents;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.world.ServerWorld;
+import net.minecraft.server.level.ServerLevel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,6 +34,10 @@ public class PandaPerWorldSeed implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		LOGGER.info("PerWorldSeed Started!");
+		File parent = CONFIG_FILE.getParentFile();
+		if (parent != null) {
+			parent.mkdirs();
+		}
 
 		loadSeedsFromFile();
 
@@ -47,7 +51,7 @@ public class PandaPerWorldSeed implements ModInitializer {
 
 		saveSeedsToFile();
 
-		ServerWorldEvents.LOAD.register(this::onWorldLoaded);
+		ServerLevelEvents.LOAD.register(this::onWorldLoaded);
 	}
 
 	private void loadSeedsFromFile() {
@@ -71,8 +75,8 @@ public class PandaPerWorldSeed implements ModInitializer {
 		}
 	}
 
-	private void onWorldLoaded(MinecraftServer minecraftServer, ServerWorld serverWorld) {
-		String dimension = serverWorld.getDimensionEntry().getIdAsString();
+	private void onWorldLoaded(MinecraftServer minecraftServer, ServerLevel serverLevel) {
+		String dimension = serverLevel.dimension().identifier().toString();
 		LOGGER.info("World loaded: {}", dimension);
 		if (!DIMENSION_SEEDS.containsKey(dimension)) {
 			long seed = new Random().nextLong();
